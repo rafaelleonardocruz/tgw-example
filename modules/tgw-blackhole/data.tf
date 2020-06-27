@@ -13,6 +13,7 @@ data "aws_vpcs" "this" {
 }
 
 data "aws_vpc" "this" {
-  count = length(data.aws_vpcs.this.ids)
-  id = element(data.aws_vpcs.this.ids, count.index)
+  for_each = data.aws_vpcs.this.ids
+
+  id = each.value
 }
